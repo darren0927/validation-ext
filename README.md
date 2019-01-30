@@ -9,19 +9,38 @@
 
 * CustomValidTestController.java
 ```java
+import com.darren.validation.ext.MultipleInt;
+import com.darren.validation.ext.MultipleString;
+import com.tandong.entity.PutRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+/**
+ * @author tandong.td
+ */
 @Controller
 @RequestMapping("valid/custom")
 @Validated
 public class CustomValidTestController {
-    
-    @GetMapping("/value/{name}")
+
+    @GetMapping("/value/id/{id}")
     public @ResponseBody String pathValid(
             @PathVariable
-            @MultipleString(values = {"a", "b", "c"}, message = "参数不合法")
-            String name){
+            @MultipleInt(values = {1, 2, 3}, message = "参数不合法") int id){
+        return "Hello " + id;
+    }
+
+    @GetMapping("/value/name/{name}")
+    public @ResponseBody String pathValid(
+            @PathVariable
+            @MultipleString(values = {"a", "b", "c"}, message = "参数不合法") String name){
         return "Hello " + name;
     }
-    
+
     @GetMapping("/value")
     public @ResponseBody String parameterValid(
             @RequestParam
@@ -36,44 +55,32 @@ public class CustomValidTestController {
         }
         return "Hello " + request.getName();
     }
-    
 }
 ``` 
 * PutRequest.java
 ```java
+import com.darren.validation.ext.ListSize;
+import com.darren.validation.ext.MultipleInt;
+import com.darren.validation.ext.MultipleString;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author tandong.td
+ */
+@Data
 public class PutRequest implements Serializable {
 
     @MultipleInt(values = {1, 2, 3}, message = "参数不合法")
     int id;
-    
+
     @MultipleString(values = {"a", "b", "c"}, message = "参数不合法")
     String name;
-    
+
     @ListSize(min = 0, max = 1, message = "ids不能为空且大小不能超过指定范围(0-1)")
     List<String> ids;
-    
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<String> getIds() {
-        return ids;
-    }
-
-    public void setIds(List<String> ids) {
-        this.ids = ids;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
 ```
