@@ -8,7 +8,7 @@
 上配置@Validated
 
 * CustomValidTestController.java
-```$xslt
+```$java
 @Controller
 @RequestMapping("valid/custom")
 @Validated
@@ -42,7 +42,7 @@ public class CustomValidTestController {
 }
 ``` 
 * PutRequest.java
-```$xslt
+```$java
 public class PutRequest implements Serializable {
 
     @MultipleInt(values = {1, 2, 3}, message = "参数不合法")
