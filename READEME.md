@@ -8,12 +8,11 @@
 上配置@Validated
 
 * CustomValidTestController.java
-```$java
+```java
 @Controller
 @RequestMapping("valid/custom")
 @Validated
 public class CustomValidTestController {
-
     
     @GetMapping("/value/{name}")
     public @ResponseBody String pathValid(
@@ -30,7 +29,6 @@ public class CustomValidTestController {
         return "Hello " + name;
     }
 
-
     @PutMapping
     public @ResponseBody String bodyValid(@Valid @RequestBody PutRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
@@ -42,7 +40,7 @@ public class CustomValidTestController {
 }
 ``` 
 * PutRequest.java
-```$java
+```java
 public class PutRequest implements Serializable {
 
     @MultipleInt(values = {1, 2, 3}, message = "参数不合法")
