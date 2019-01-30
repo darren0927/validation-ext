@@ -1,4 +1,4 @@
-package com.darren.validation.extend;
+package com.darren.validation.ext;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
