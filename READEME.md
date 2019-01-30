@@ -14,23 +14,22 @@
 @Validated
 public class CustomValidTestController {
 
+    
     @GetMapping("/value/{name}")
     public @ResponseBody String pathValid(
             @PathVariable
-            @Valid
-            @MultipleString(values = {PutRequest.TYPE_TIANJI, PutRequest.TYPE_ARMORY, PutRequest.TYPE_CMDB},
-                    message = PutRequest.TYPE_VALID_MSG)
+            @MultipleString(values = {"a", "b", "c"}, message = "参数不合法")
             String name){
         return "Hello " + name;
     }
-
+    
     @GetMapping("/value")
     public @ResponseBody String parameterValid(
             @RequestParam
-            @MultipleString(values = {PutRequest.TYPE_TIANJI, PutRequest.TYPE_ARMORY,
-                    PutRequest.TYPE_CMDB}, message = PutRequest.TYPE_VALID_MSG) String name){
+            @MultipleString(values = {"a", "b", "c"}, message = "参数不合法") String name){
         return "Hello " + name;
     }
+
 
     @PutMapping
     public @ResponseBody String bodyValid(@Valid @RequestBody PutRequest request, BindingResult bindingResult){
@@ -39,23 +38,29 @@ public class CustomValidTestController {
         }
         return "Hello " + request.getName();
     }
+    
 }
 ``` 
 * PutRequest.java
 ```$xslt
 public class PutRequest implements Serializable {
 
-    public static final String TYPE_TIANJI = "tianji";
-    public static final String TYPE_ARMORY = "armory";
-    public static final String TYPE_CMDB = "cmdb";
-
-    public static final String TYPE_VALID_MSG = "Valid values for the name are tianji, armory, or cmdb";
-
-    @MultipleString(values = {TYPE_TIANJI,TYPE_ARMORY,TYPE_CMDB}, message = TYPE_VALID_MSG)
+    @MultipleInt(values = {1, 2, 3}, message = "参数不合法")
+    int id;
+    
+    @MultipleString(values = {"a", "b", "c"}, message = "参数不合法")
     String name;
-
+    
     @ListSize(min = 0, max = 1, message = "ids不能为空且大小不能超过指定范围(0-1)")
     List<String> ids;
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public List<String> getIds() {
         return ids;

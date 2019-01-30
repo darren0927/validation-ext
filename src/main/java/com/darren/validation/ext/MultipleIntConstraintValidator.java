@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @Description:参数约束校验器：MultipleInt 允许参数设置为指定的多个int值
  * @date 2019/1/30 14:52
  */
-public class MultipleIntConstraintValidator implements ConstraintValidator<MultipleInt, Integer> {
+public class MultipleIntConstraintValidator implements ConstraintValidator<MultipleInt, java.lang.Integer> {
 
     /**
      * 注解中设置的允许的默认值
@@ -29,8 +29,10 @@ public class MultipleIntConstraintValidator implements ConstraintValidator<Multi
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        if(Arrays.asList(values).contains(value)){
-            return true;
+        for(int i=0; i<values.length; i++){
+            if(values[i] == value.intValue()){
+                return true;
+            }
         }
         /**
          * 返回参数校验失败，并构建错误提示信息
