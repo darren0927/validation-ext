@@ -14,7 +14,7 @@ import static java.lang.annotation.ElementType.TYPE_USE;
  * @Description:TODO
  * @date 2019/1/30 14:52
  */
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({ FIELD, PARAMETER, METHOD, ANNOTATION_TYPE, CONSTRUCTOR, TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
